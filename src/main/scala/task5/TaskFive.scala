@@ -1,8 +1,8 @@
 package task5
 
-import org.apache.spark.sql.{DataFrame, SQLContext, SparkSession}
-import org.apache.spark.sql.types.{IntegerType, StringType, StructField, StructType}
 import org.apache.spark.sql.functions._
+import org.apache.spark.sql.types.{IntegerType, StringType, StructField, StructType}
+import org.apache.spark.sql.{SQLContext, SparkSession}
 
 object TaskFive extends App {
 
@@ -28,7 +28,8 @@ object TaskFive extends App {
     .schema(schema)
     .csv(dataFile)
 
-  private val numOfMaleEmmas = nationalNames
+  nationalNames
     .where("Name == 'Emma' and Gender == 'M' and Year BETWEEN 1970 AND 2000")
-    .agg(sum("Count") / 31)
+    .agg(sum("Count") / 31.0)
+    .show()
 }
